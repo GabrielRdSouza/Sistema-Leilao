@@ -1,0 +1,98 @@
+﻿@model FrontEnd.ViewModel.ProdutoVM
+
+<div class="box-table">
+    <div class="box-titulo">
+        <h3>Leilões Abertos</h3>
+    </div>
+    <table id="tableProdutos" class="table-responsive table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Novo/Usado</th>
+                <th>Vendedor</th>
+                <th>Data de Término</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model.Produtos.Any()) {
+                foreach(var produto in Model.Produtos) {
+                    <tr class="">
+                        <td>
+                            @Html.DisplayFor(model => produto.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => produto.Descricao)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => produto.Preco)
+                        </td>
+                        <td>
+                            @if(produto.Novo) {<text>Novo</text>}
+                        else { <text>Usado</text>}
+                        </td>
+                        <td>
+                            @if(produto.CodigoUsuario.Equals(Model.UsuarioLogado.Codigo)) {
+                                <text>Você</text>
+                            }
+                            else { @Html.DisplayFor(model => produto.Usuario.Nome.Split(' ')[0])}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => produto.DataFim)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="box-table">
+    <div class="box-titulo">
+        <h3>Usuários</h3>
+    </div>
+    <table id="tableUsuarios" class="table-responsive table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Cidade</th>
+                <th>Sexo</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Data de Cadastro</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model.Usuarios.Any()) {
+                foreach(var usuario in Model.Usuarios) {
+                    <tr class="">
+                        <td nowrap>
+                            @Html.DisplayFor(model => usuario.Nome)
+                        </td>
+                        <td nowrap>
+                            @Html.DisplayFor(model => usuario.CPF)
+                        </td>
+                        <td nowrap>
+                            @Html.DisplayFor(model => usuario.Cidade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => usuario.Sexo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => usuario.Email)
+                        </td>
+                        <td nowrap>
+                            @Html.DisplayFor(model => usuario.Telefone)
+                        </td>
+                        <td nowrap>
+                            @Html.DisplayFor(model => usuario.DataCadastro)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,67 @@
+﻿@model FrontEnd.ViewModel.ProdutoVM
+
+<div class="box-table">
+    <div class="box-titulo">
+        <h3>Leilões em Aberto</h3>
+    </div>
+    <table id="tableUltimosProdutos" class="table table-responsive table-bordered table-sm hover">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Novo/Usado</th>
+                <th>Vendedor</th>
+                <th>Lance Atual</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model.Produtos.Any()) {
+                for(int i = 0; i < Model.Produtos.Count; i++) {
+                    <tr class="">
+                        <td>
+                            @Html.DisplayFor(model => Model.Produtos[i].Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => Model.Produtos[i].Descricao)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => Model.Produtos[i].Preco)
+                        </td>
+                        <td>
+                            @if(Model.Produtos[i].Novo) {<text>Novo</text>}
+                        else { <text>Usado</text>}
+                        </td>
+                        <td>
+                            @if(Model.Produtos[i].CodigoUsuario.Equals(Model.UsuarioLogado.Codigo)) {
+                                <text>Você</text>
+                            }
+                            else {
+                                @Html.DisplayFor(model => Model.Produtos[i].Usuario.Nome.Split(' ')[0])
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => Model.UltimoLance[i].Valor)
+                        </td>
+                        <td>
+                            @if(Model.Produtos[i].Usuario.CPF != Model.UsuarioLogado.CPF) {
+                                if(Model.UltimoLance[i].CodigoUsuario != Model.UsuarioLogado.Codigo) {
+                                    <button class="botao-lance" onclick="location.href='@Url.Action("Participar", "Produto", Model.Produtos[i])'">Lance</button>
+                                }
+                                else {
+                                    <label>O ultimo lance é seu.</label>
+                                }
+                            }
+                            else {
+                                <label> O produto é seu.</label>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+

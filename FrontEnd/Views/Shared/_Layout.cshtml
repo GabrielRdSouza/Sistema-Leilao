@@ -1,0 +1,48 @@
+﻿@model FrontEnd.ViewModel.ConfiguracaoVM
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Html.DisplayFor(model => Model.Action) | Sistema Leilão</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Arquivos/images/icon/hammer.png">
+    <link rel="stylesheet" type="text/css" href="~/Arquivos/css/LeilaoStyle.css" />
+    <link rel="stylesheet" type="text/css" href="~/Arquivos/css/toastr.css" />
+    <link rel="stylesheet" type="text/css" href="~/Arquivos/datatables/DataTables-1.10.16/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="~/Arquivos/datatables/jQuery-3.2.1/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="~/Arquivos/datatables/DataTables-1.10.16/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="~/Arquivos/datatables/Responsive-2.2.1/js/dataTables.responsive.js"></script>
+    <script type="text/javascript" src="~/Arquivos/jquery-mask/jquery.mask.js"></script>
+    <script type="text/javascript" src="~/Arquivos/js/LeilaoScript.js"></script>
+    <script type="text/javascript" src="~/Arquivos/js/toastr.js"></script>
+</head>
+<body>
+    @RenderBody()
+    @{
+        var mensagem = TempData["Mensagem"] ?? string.Empty;
+        var tipo = TempData["Tipo"] ?? string.Empty;
+        var titulo = TempData["Titulo"] ?? string.Empty;
+    }
+    <script>
+    if ('@mensagem') {
+        toastr.@tipo ('@mensagem', '@titulo', {
+            "progressBar": true,
+            "closeButton": true,
+            "showMethod": "slideDown",
+            "hideMethod": "slideUp",
+            "timeOut": 5000
+        });
+    }
+    </script>
+    <div class="nav-topo">
+        <ul class="nav-topo">
+            <li class="nav-button"><a href="@Url.Action("Index", "Produto")"><strong>Página Inicial</strong></a></li>
+            <li class="nav-button"><a href="@Url.Action("Leiloar", "Produto")">Leiloar Produto</a></li>
+            <li class="nav-button"><a href="@Url.Action("Relatorio", "Produto")">Relatórios</a></li>
+            <li class="nav-button"><a href="@Url.Action("Grafico", "Produto")">Gráfico</a></li>
+            <li style="float:right" class="nav-button"><a href='@Url.Action("Deslogar", "Login")'>Sair</a></li>
+            <li style="float:right" class="nav-button"><a href="#">Bem vindo(a), @Model.UsuarioLogado.Nome</a></li>
+        </ul>
+    </div>
+</body>
+</html>

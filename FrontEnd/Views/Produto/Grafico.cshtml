@@ -1,0 +1,28 @@
+﻿@model FrontEnd.ViewModel.ProdutoVM
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div class="margin-top-10 margin-10" id="grafico"></div>
+<script>
+    google.charts.load('current', { packages: ['corechart', 'line'] });
+    google.charts.setOnLoadCallback(drawTrendlines);
+
+    function drawTrendlines() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Dias');
+        data.addColumn('number', 'Novos Lances');
+        data.addColumn('number', 'Novos Leilões');
+        data.addColumn('number', 'Novos Usuários');
+
+        data.addRows([@Html.DisplayFor(model => model.Grafico)]);
+
+        var options = {
+            hAxis: {
+                title: 'Ultimos 30 dias'
+            },
+            vAxis: {
+                title: 'Quantidade'
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('grafico'));
+        chart.draw(data, options);
+    }</script>

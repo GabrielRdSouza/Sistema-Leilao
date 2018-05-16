@@ -1,0 +1,38 @@
+﻿@model FrontEnd.ViewModel.UsuarioVM
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<div class="box-center" id="login">
+    <div class="box-titulo">
+        <h3>Login</h3>
+    </div>
+    <div class="margin-10">
+        @using(Html.BeginForm("Logar", "Login", FormMethod.Post)) {
+            @Html.AntiForgeryToken()
+            <div>
+                <label class="label-input">CPF:</label><br />
+                @Html.EditorFor(cpf => cpf.Usuario.CPF, new {
+                    htmlattributes = new {
+                        @id = "cpfLogin",
+                        @placeholder = "Digite o cpf...", @autofocus = "autofocus",
+                        @maxlength = "14", @minlength = "14", @class = "input-curta"
+                    }
+                })
+            </div>
+            <div>
+                <label class="label-input">Senha:</label><br />
+                @Html.EditorFor(senha => senha.Usuario.Senha, new {
+                    htmlattributes = new {
+                        @id = "senha", @placeholder = "Digite a senha...",
+                        @minlength = "8", @maxlength = "32",
+                        @class = "input-curta", @type = "password"
+                    }
+                })
+            </div>
+            <div class="fim-da-caixa margin-top-10">
+                <button onclick="location.href='@Configuration.CadastroUsuario';" type="button" class="botao-confirmar">Cadastrar</button>
+                <button type="submit" class="botao-confirmar">Login</button>
+            </div>
+        }
+    </div>
+</div>

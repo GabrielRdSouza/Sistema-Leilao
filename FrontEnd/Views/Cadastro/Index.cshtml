@@ -1,0 +1,81 @@
+﻿@model FrontEnd.ViewModel.UsuarioVM
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+@using(Html.BeginForm("Cadastrar", "Cadastro", FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+    <div class="box-center" id="login">
+        <div class="box-titulo">
+            <h3>Cadastro</h3>
+        </div>
+        <div class="margin-10">
+            <div>
+                <label class="label-input">Nome*:</label><br />
+                @Html.EditorFor(model => model.Usuario.Nome, new {
+        htmlattributes = new {
+            @id = "nomeCadastroUsuario",
+            @maxlength = "40", @class = "input-curta",
+            @required = "required"
+        }
+    })
+                <label class="label-input">CPF*:</label><br />
+                @Html.EditorFor(model => model.Usuario.CPF, new {
+        htmlattributes = new {
+            @id = "cpfCadastroUsuario",
+            @maxlength = "14", @class = "input-curta",
+            @onchange = "BuscarCPF()",
+            @required = "required"
+        }
+    })
+                <label class="label-input">Sexo:</label><br />
+                @Html.EditorFor(model => model.Usuario.Sexo, new {
+        htmlattributes = new {
+            @id = "sexoCadastroUsuario",
+            @maxlength = "20", @class = "input-curta"
+        }
+    })
+                <label class="label-input">Telefone:</label><br />
+                @Html.EditorFor(model => model.Usuario.Telefone, new {
+        htmlattributes = new {
+            @id = "telefoneCadastroUsuario",
+            @maxlength = "20", @class = "input-curta",
+            @onchange = "BuscarTelefone()"
+        }
+    })
+                <label class="label-input">Cidade:</label><br />
+                @Html.EditorFor(model => model.Usuario.Cidade, new {
+        htmlattributes = new {
+            @id = "cidadeCadastroUsuario",
+            @maxlength = "40", @class = "input-curta"
+        }
+    })
+                <label class="label-input">Email*:</label><br />
+                @Html.EditorFor(model => model.Usuario.Email, new {
+        htmlattributes = new {
+            @id = "emailCadastroUsuario",
+            @maxlength = "100", @class = "input-curta",
+            @onchange = "BuscarEmail()", @type = "email",
+            @required = "required"
+        }
+    })
+                <label class="label-input">Senha*:</label><br />
+                @Html.EditorFor(model => model.Usuario.Senha, new {
+        htmlattributes = new {
+            @id = "senha1",
+            @maxlength = "32", @class = "input-curta", @type = "password",
+            @required = "required"
+        }
+    })
+                <label class="label-input">Confirmar Senha*:</label><br />
+                <input required id="senha2" maxlength="32" , class="input-curta" type="password" onchange="ValidarSenha()" />
+                <label class="label-input">Os campos com (*) são obrigatórios.</label><br /><br />
+                <div class="fim-da-caixa margin-top-10">
+                    <button onclick="location.href='@Configuration.Login';" type="button" class="botao-cancelar">Voltar</button>
+                    <button onclick="ValidarCadastroUsuario()" type="button" class="botao-confirmar">Cadastrar</button>
+                    <button type="submit" style="display:none" id="cadastrarUsuario" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

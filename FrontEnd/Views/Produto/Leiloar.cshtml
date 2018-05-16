@@ -1,0 +1,49 @@
+﻿@model FrontEnd.ViewModel.ProdutoVM
+
+<div class="box-center" id="box-leiloar">
+    <div class="box-titulo">
+        <h3>
+            Leiloar um novo produto
+        </h3>
+    </div>
+
+    @using(Html.BeginForm("CadastrarProduto", "Produto", FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+        <label class="label-input">Nome*:</label><br />
+        @Html.EditorFor(model => model.Produto.Nome, new {
+            htmlattributes = new {
+                @id = "nomeProdutoCadastroProduto",
+                @maxlength = "40", @class = "input-curta",
+                @required = "required"
+            }
+        })
+        <label class="label-input">Descrição:</label><br />
+        @Html.EditorFor(model => model.Produto.Descricao, new {
+            htmlattributes = new {
+                @id = "descricaoCadastroProduto",
+                @maxlength = "500", @class = "input-curta"
+            }
+        })
+        <label class="label-input">Valor (R$)*:</label><br />
+        @Html.EditorFor(model => model.Valor, new {
+            htmlattributes = new {
+                @id = "precoCadastroProduto",
+                @maxlength = "20", @class = "input-curta",
+                @required = "required"
+            }
+        })
+        <label class="label-input">
+            @Html.CheckBoxFor(model => model.Produto.Novo, new {
+                htmlattributes = new {
+                    @id = "novoCadastroProduto", @class = "input-curta margin-left-10"
+                }
+            })
+            O produto é novo
+        </label><br />
+        <label class="label-input">Os campos com (*) são obrigatórios.</label><br /><br />
+        <div class="fim-da-caixa">
+            <button onclick="location.href='@Configuration.Produto'" type="button" class="botao-cancelar">Cancelar</button>
+            <button type="submit" class="botao-confirmar">Confirmar</button>
+        </div>
+    }
+</div>

@@ -1,0 +1,45 @@
+﻿@model FrontEnd.ViewModel.ProdutoVM
+@using(Html.BeginForm("Lance", "Produto", FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+    <div class="box-center margin-top-10" id="box-participar">
+        @Html.HiddenFor(model => model.Produto.Codigo, new {
+            htmlattributes = new {
+                @id = "nomeProdutoParticiparProduto",
+                @maxlength = "40", @class = "input-curta"
+            }
+        })
+        <label class="label-input">Nome do produto:</label><br />
+        @Html.EditorFor(model => model.Produto.Nome, new { htmlattributes = new {
+       @disabled = "disabled",
+       @class = "input-curta",
+       @id = "nomeProdutoParticiparProduto"
+   } })
+        @Html.EditorFor(model => model.Produto.Descricao, new {
+            htmlattributes = new {
+                @disabled = "disabled",
+                @class = "input-curta",
+                @id = "descricaoParticiparProduto"
+            }
+        })
+        <label class="label-input">Maior lance até o momento(R$):</label><br />
+        @Html.EditorFor(model => model.MaiorLance, new {
+            htmlattributes = new {
+                @disabled = "disabled",
+                @class = "input-curta",
+                @id = "maiorLanceParticiparProduto"
+            }
+        })
+        <label class="label-input">Valor do lance(R$):</label><br />
+        @Html.EditorFor(model => model.Valor, new {
+            htmlattributes = new {
+                @id = "valorParticiparProduto",
+                @maxlength = "20", @class = "input-curta",
+                @onchange = "ValidarValor()"
+            }
+        })
+        <div class="caixa-botoes">
+            <button onclick="location.href='@Configuration.Produto'" type="button" class="botao-cancelar">Cancelar</button>
+            <button type="submit" class="botao-confirmar">Confirmar</button>
+        </div>
+    </div>
+}
